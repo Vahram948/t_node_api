@@ -9,13 +9,17 @@ const server = require('http').Server(app);
 console.log('REDIS HOST: ', redisHost);
 
 // Create subscriber for listening events
-const subscriber = redis.createClient({host: redisHost});
+const subscriber = redis.createClient({ host: redisHost });
 
 // Subscribe to given channel
 subscriber.subscribe(redisSubChannel);
 
 // Create and attach socket server
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, {
+    cors: {
+        origin: '*',
+    }
+});
 
 // Handle redis publisher messages
 subscriber.on('message', function (channel, message) {

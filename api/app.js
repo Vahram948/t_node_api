@@ -4,7 +4,8 @@ const cors = require('cors');
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cors());
+
+app.use(cors({ origin: '*' }));
 
 app.get('/api', (req, res) => {
     res.status(200).send('Redis-Socket Service API');
